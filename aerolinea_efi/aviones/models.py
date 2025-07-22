@@ -16,7 +16,7 @@ class Vuelo(models.Model):
     origen = models.ForeignKey(Aeropuerto, related_name='vuelos_origen', on_delete=models.CASCADE)
     destino = models.ForeignKey(Aeropuerto, related_name='vuelos_destino', on_delete=models.CASCADE)
     fecha_salida = models.DateTimeField()
-    fehca_llegada = models.DateTimeField()
+    fecha_llegada = models.DateTimeField()
     duracion = models.DurationField(null= True, blank= True)
     tripulacion = models.ManyToManyField(Tripulante, blank=True)
 
@@ -52,12 +52,12 @@ class Reserva(models.Model):
     asiento = models.CharField(max_length=5) #ej: "12A"
     fecha_reserva = models.DateTimeField(auto_now_add=True)
     precio_pagado = models.DecimalField(max_digits=10, decimal_places=2)
-    clase = models.ForeignKey(Asiento, on_delete=models.SET_NULL, null=True, blank=True)
+    tipo_asiento = models.ForeignKey(Asiento, on_delete=models.SET_NULL, null=True, blank=True)
 
     ESTADOS_RESERVA = [
-        ('confirmada', 'Confirmada')
-        ('cancelada', 'Cancelada')
-        ('pendiente', 'Pendiente')
+        ('confirmada', 'Confirmada'),
+        ('cancelada', 'Cancelada'),
+        ('pendiente', 'Pendiente'),
     ]
     estado = models.CharField(max_length=20, choices=ESTADOS_RESERVA, default='pendiente')
 

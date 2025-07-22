@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Reporte de Pasajeros por Vuelo</title>
+    </head>
+
+    <body>
+        <h1>Reportes: Pasajeros por Vuelo</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="vuelo">Selecciona un vuelo:</label>
+            <select name="vuelo" id="vuelo" required>
+                {% for vuelo in vuelos %}
+                    <option value="{{ vuelo.id }}">
+                        {{ vuelo.origen }} → {{ vuelo.destino }} ({{ vuelo.fecha_salida|date:"d/m/Y H:i" }})
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Ver pasajeros</button>
+        </form>
+
+        {% if reservas %}
+            <h2>Pasajeros del vuelo {{ vuelo_seleccionado.origen}} → {{ vuelo_seleccionado.destino}}</h2>
+            <ul>
+                {% for reserva in reservas %}
+                    <li>{{ reserva.pasajero.apellido}}, {{reserva.pasajero.nombre}} (DNI: {{ reserva.pasajero.documento}})</li>
+                {% empty %}
+                    <li>No hay pasajeros registrados en este vuelo.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </body>
+</html>
