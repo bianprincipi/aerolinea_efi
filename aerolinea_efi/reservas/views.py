@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+def lista_pasajeros(request):
+    return HttpResponse("Lista de pasajeros")
+
+def crear_pasajero(request):
+    return HttpResponse("Crear pasajero")

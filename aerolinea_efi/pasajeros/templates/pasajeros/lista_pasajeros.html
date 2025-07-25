@@ -1,0 +1,9 @@
+<h1>Lista de Pasajeros</h1>
+<a href="{% url 'crear_pasajero' %}">Crear pasajero</a>
+<ul>
+  {% for pasajero in pasajeros %}
+    <li>{{ pasajero.nombre }} {{ pasajero.apellido }} - {{ pasajero.documento }}</li>
+  {% empty %}
+    <li>No hay pasajeros aún.</li>
+  {% endfor %}
+</ul>
