@@ -1,19 +1,11 @@
-from django.shortcuts import render
+from django.db import models
 from vuelos.models import Vuelo
-from reservas.models import Reserva
+from datetime import datetime
 
-def reporte_pasajeros_por_vuelo(request):
-    vuelos = Vuelo.objects.all()
-    reservas = None
-    vuelo_seleccionado = None
+class ReportePasajerosPorVuelo(models.Model):
+    vuelo = models.ForeignKey(Vuelo, on_delete=models.CASCADE)
+    generado_por = models.CharField(max_length=100)
+    fecha_generacion = models.DateTimeField(default=datetime.now)
 
-    if request.method == 'POST':
-        vuelo_id = request.POST.get('vuelo')
-        vuelo_seleccionado = Vuelo.objects.get(id=vuelo_id)
-        reservas = Reserva.objects.filter(vuelo=vuelo_seleccionado)
-
-    return render(request, 'reportes/pasajeros_por_vuelo.html', {
-        'vuelos': vuelos,
-        'reservas': reservas,
-        'vuelo_seleccionado': vuelo_seleccionado
-    })
+    def __str__(self):
+        return f"Reporte de vuelo {self.vuelo} - {self.fecha_generacion.date()}"

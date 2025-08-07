@@ -6,7 +6,7 @@ from django import forms
 class PasajeroForm(forms.ModelForm):
     class Meta:
         model = Pasajero
-        fields = ['nombre', 'apellido', 'documento', 'email', 'telefono', 'fecha_nacimiento', 'nacionalidad']
+        fields = ['nombre', 'apellido', 'documento', 'email', 'telefono', 'fecha_nacimiento']
 
 
 def lista_pasajeros(request):

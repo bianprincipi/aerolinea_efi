@@ -1,13 +1,19 @@
 from django.db import models
 
-class Pasajero(models.Model): 
+class Pasajero(models.Model):
+    TIPO_DOCUMENTO = [
+        ('DNI', 'DNI'),
+        ('Pasaporte', 'Pasaporte'),
+        ('Otro', 'Otro')
+    ]
+
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
-    documento = models.CharField(max_length=20, unique=True)
+    documento = models.CharField(max_length=50, unique=True)
+    tipo_documento = models.CharField(max_length=20, choices=TIPO_DOCUMENTO)
     email = models.EmailField()
     telefono = models.CharField(max_length=20)
     fecha_nacimiento = models.DateField()
-    nacionalidad = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido} ({self.documento})"
+        return self.nombre
